@@ -13,4 +13,5 @@ final class HealthCheckController extends Controller
     {
         return response()->noContent(status: Response::HTTP_OK);
     }
+
 }
