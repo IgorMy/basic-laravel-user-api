@@ -67,7 +67,7 @@ class User extends Model
      *
      * @var array
      */
-    protected $visible = ['username','email','created_at'];
+    protected $visible = ['user_name','email','created_at'];
 
 
     /**
