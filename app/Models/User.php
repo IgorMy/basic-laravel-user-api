@@ -37,6 +37,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|User whereUpdatedAt($value)
  * @method static Builder|User whereUserName($value)
  * @method static Builder|User whereUsersUlid($value)
+ * @property-read \App\Models\Role|null $role
  * @mixin Eloquent
  */
 final class User extends Model

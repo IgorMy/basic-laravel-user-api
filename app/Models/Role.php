@@ -8,6 +8,7 @@ use App\Queries\Role\GetAdminRoleCached;
 use App\Queries\Role\GetUserRoleCached;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -32,6 +33,9 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Role whereRoleUlid($value)
  * @method static Builder|Role whereTitle($value)
  * @method static Builder|Role whereUpdatedAt($value)
+ * @property-read Collection<int, User> $users
+ * @property-read int|null $users_count
+ * @method static \Database\Factories\RoleFactory factory($count = null, $state = [])
  * @mixin Eloquent
  */
 final class Role extends Model

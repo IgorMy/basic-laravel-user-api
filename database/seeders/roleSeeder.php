@@ -23,7 +23,7 @@ class roleSeeder extends Seeder
             'title' => 'user',
             'base_role' => true,
         ]);
-        
+
 
     }
 }
