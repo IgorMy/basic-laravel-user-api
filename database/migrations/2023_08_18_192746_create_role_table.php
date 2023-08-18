@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('role', function (Blueprint $table) {
             $table->ulid('RoleUlid')->primary();
             $table->string('title',255);
+            $table->boolean('base_role')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });
