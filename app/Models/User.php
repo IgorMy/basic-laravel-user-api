@@ -9,9 +9,10 @@ use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
 
 /**
@@ -22,7 +23,7 @@ use Illuminate\Support\Carbon;
  * @property string $email
  * @property string $password
  * @property string $RoleUlid
- * @property Carbon|null $created_at
+ * @property Carbon $created_at
  * @property Carbon|null $updated_at
  * @property string|null $deleted_at
  * @method static UserFactory factory($count = null, $state = [])
@@ -37,10 +38,10 @@ use Illuminate\Support\Carbon;
  * @method static Builder|User whereUpdatedAt($value)
  * @method static Builder|User whereUserName($value)
  * @method static Builder|User whereUsersUlid($value)
- * @property-read \App\Models\Role|null $role
+ * @property-read Role $role
  * @mixin Eloquent
  */
-final class User extends Model
+final class User extends Authenticatable implements JWTSubject
 {
     use HasFactory;
     use HasUlids;
@@ -113,5 +114,15 @@ final class User extends Model
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class,'RoleUlid','RoleUlid');
+    }
+
+    public function getJWTIdentifier(): mixed
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims(): array
+    {
+        return [];
     }
 }

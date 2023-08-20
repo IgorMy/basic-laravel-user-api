@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Queries\Role\GetAdminRoleCached;
 use App\Queries\Role\GetUserRoleCached;
+use Database\Factories\RoleFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -35,7 +36,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Role whereUpdatedAt($value)
  * @property-read Collection<int, User> $users
  * @property-read int|null $users_count
- * @method static \Database\Factories\RoleFactory factory($count = null, $state = [])
+ * @method static RoleFactory factory($count = null, $state = [])
  * @mixin Eloquent
  */
 final class Role extends Model
