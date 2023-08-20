@@ -15,7 +15,7 @@ Route::group([
     Route::post('login', [AuthController::class, 'login']);
 
     Route::group([
-        'middleware' => 'api'
+        'middleware' => 'auth:jwt'
     ], function() {
         Route::get('logout', [AuthController::class, 'logout']);
         Route::get('refresh', [AuthController::class, 'refresh']);
