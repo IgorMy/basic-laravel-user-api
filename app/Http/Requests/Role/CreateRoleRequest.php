@@ -1,13 +1,11 @@
 <?php
 
-declare(strict_types=1);
-
-namespace App\Http\Requests;
+namespace App\Http\Requests\Role;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-final class LoginRequest extends FormRequest
+class CreateRoleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,8 +23,9 @@ final class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email',
-            'password' => 'required|string',
+            'RoleUlid' => 'ulid',
+            'title' => 'required|string|max:255|unique:role,title',
+            'base_role' => 'boolean',
         ];
     }
 }

@@ -8,7 +8,7 @@ use App\Http\Requests\LoginRequest;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-class AuthController extends Controller
+final class AuthController extends Controller
 {
     /**
      * Get a JWT via given credentials.
