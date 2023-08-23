@@ -24,8 +24,7 @@ class UpdateRoleRequest extends FormRequest
     {
         return [
             'RoleUlid' => 'ulid',
-            'title' => 'required|string|max:255|unique:role,title',
-            'base_role' => 'boolean',
+            'title' => 'required|string|max:255|unique:role,title'
         ];
     }
 }

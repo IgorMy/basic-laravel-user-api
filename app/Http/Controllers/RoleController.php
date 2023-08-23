@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Role\CreateRoleRequest;
 use App\Http\Requests\Role\UpdateRoleRequest;
 use App\Models\Role;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class RoleController extends Controller
@@ -28,24 +27,47 @@ class RoleController extends Controller
 
     public function show(string $RoleUlid):Response
     {
-        return response()->json([
-            'role' => Role::where('RoleUlid', $RoleUlid)->firstOrFail(),
+        return response(
+            Role::where('RoleUlid', $RoleUlid)->firstOrFail(),
             Response::HTTP_OK
-        ]);
+        );
     }
 
     public function update(UpdateRoleRequest $request, string $RoleUlid):Response
     {
+
+        $role = Role::where('RoleUlid', $RoleUlid)->firstOrFail();
+
+        if($role->base_role){
+            return response(
+                'Cannot update base role',
+                Response::HTTP_BAD_REQUEST
+            );
+        }
+
+        $role->update($request->validated());
         return response(
-            Role::where('RoleUlid', $RoleUlid)->update($request->validated()),
+            $role,
             Response::HTTP_OK
         );
     }
 
     public function destroy(string $RoleUlid):Response
     {
+
+        $role = Role::where('RoleUlid', $RoleUlid)->firstOrFail();
+
+        if($role->base_role){
+            return response(
+                'Cannot delete base role',
+                Response::HTTP_BAD_REQUEST
+            );
+        }else{
+            $role->delete();
+        }
+
         return response(
-            Role::where('RoleUlid', $RoleUlid)->delete(),
+            null,
             Response::HTTP_OK
         );
     }

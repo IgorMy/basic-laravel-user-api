@@ -32,5 +32,6 @@ Route::prefix('role')->middleware(['admin','auth:jwt'])->group(function (){
         Route::post('/', [RoleController::class, 'store']);
         Route::get('/{RoleUlid}', [RoleController::class, 'show']);
         Route::patch('/{RoleUlid}', [RoleController::class, 'update']);
+        Route::delete('/{RoleUlid}', [RoleController::class, 'destroy']);
     }
 );

@@ -77,7 +77,7 @@ final class Role extends Model
      *
      * @var array
      */
-    protected $visible = ['title','created_at'];
+    protected $visible = ['RoleUlid','title','created_at'];
 
     /**
      * The attributes that are mass assignable.
