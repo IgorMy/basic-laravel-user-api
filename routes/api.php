@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers\HealthCheckController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
@@ -33,5 +34,16 @@ Route::prefix('role')->middleware(['admin','auth:jwt'])->group(function (){
         Route::get('/{RoleUlid}', [RoleController::class, 'show']);
         Route::patch('/{RoleUlid}', [RoleController::class, 'update']);
         Route::delete('/{RoleUlid}', [RoleController::class, 'destroy']);
+    }
+);
+
+// user routes
+// Instead using resource, we are using explicit definition to prevent PUT/PATCH on update method
+Route::prefix('user')->middleware(['admin','auth:jwt'])->group(function (){
+        Route::get('/', [UserController::class, 'index']);
+        Route::post('/', [UserController::class, 'store']);
+        Route::get('/{UsersUlid}', [UserController::class, 'show']);
+        Route::patch('/{UsersUlid}', [UserController::class, 'update']);
+        Route::delete('/{UsersUlid}', [UserController::class, 'destroy']);
     }
 );
