@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Role\CreateRoleRequest;
 use App\Http\Requests\Role\UpdateRoleRequest;
+use App\Http\Resources\RoleResource;
 use App\Models\Role;
 use App\Service\Request\GetSkipAndLimitFromRequestService;
 use Illuminate\Http\Request;
@@ -29,7 +30,10 @@ class RoleController extends Controller
         ] = GetSkipAndLimitFromRequestService::execute($request);
 
         return response(
-            Role::all()->skip($skip)->take($take),
+            new RoleResource(
+                Role::skip($skip)->take($take)->get(),
+                Role::count()
+            ),
             Response::HTTP_OK
         );
     }

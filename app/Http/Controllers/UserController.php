@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
+use App\Http\Resources\UsersResource;
 use App\Models\User;
 use App\Service\Request\GetSkipAndLimitFromRequestService;
 use Illuminate\Http\Request;
@@ -33,7 +34,10 @@ class UserController extends Controller
         ] = GetSkipAndLimitFromRequestService::execute($request);
 
         return response(
-            User::all()->skip($skip)->take($take),
+            new UsersResource(
+                User::all()->skip($skip)->take($take),
+                User::count()
+            ),
             Response::HTTP_OK
         );
     }
