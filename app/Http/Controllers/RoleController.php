@@ -5,14 +5,31 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Role\CreateRoleRequest;
 use App\Http\Requests\Role\UpdateRoleRequest;
 use App\Models\Role;
+use App\Service\Request\GetSkipAndLimitFromRequestService;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class RoleController extends Controller
 {
-    public function index():Response
+    /**
+     * @lrd:start
+     * By default, the endpoint will return 10 records,
+     * you can change the number of records returned by using the query string parameters skip and take.
+     * @lrd:end
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function index(Request $request):Response
     {
+
+        [
+            'skip' => $skip,
+            'take' => $take
+        ] = GetSkipAndLimitFromRequestService::execute($request);
+
         return response(
-            Role::all(),
+            Role::all()->skip($skip)->take($take),
             Response::HTTP_OK
         );
     }
