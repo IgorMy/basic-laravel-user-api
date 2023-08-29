@@ -45,5 +45,6 @@ Route::prefix('user')->middleware(['admin','auth:jwt'])->group(function (){
         Route::get('/{UsersUlid}', [UserController::class, 'show']);
         Route::patch('/{UsersUlid}', [UserController::class, 'update']);
         Route::delete('/{UsersUlid}', [UserController::class, 'destroy']);
+        Route::post('search', [UserController::class, 'search']);
     }
 );
