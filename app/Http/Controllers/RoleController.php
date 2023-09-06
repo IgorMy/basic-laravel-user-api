@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Builders\RoleFilterBuilder;
 use App\Http\Requests\Role\CreateRoleRequest;
+use App\Http\Requests\Role\RoleSearchRequest;
 use App\Http\Requests\Role\UpdateRoleRequest;
 use App\Http\Resources\RoleResource;
 use App\Models\Role;
@@ -33,6 +35,22 @@ class RoleController extends Controller
             new RoleResource(
                 Role::skip($skip)->take($take)->get(),
                 Role::count()
+            ),
+            Response::HTTP_OK
+        );
+    }
+
+    public function search(RoleSearchRequest $request):Response
+    {
+        $builder = new RoleFilterBuilder($request->validated());
+
+        return response(
+            new RoleResource(
+                Role::where($builder->getWhere())
+                    ->take($builder->getTake())
+                    ->skip($builder->getSkip())
+                    ->get(),
+                Role::where($builder->getWhere())->count()
             ),
             Response::HTTP_OK
         );

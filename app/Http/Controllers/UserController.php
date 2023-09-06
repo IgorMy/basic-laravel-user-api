@@ -63,8 +63,6 @@ class UserController extends Controller
 
         $builder = new UserFilterBuilder($request->validated());
 
-
-
         return response(
             new UsersResource(
                 User::where($builder->getWhere())
