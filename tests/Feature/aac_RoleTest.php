@@ -49,4 +49,9 @@ it('delete role', function () {
     $response->assertStatus(200);
 });
 
+it('search role', function () {
+    asAdmin()->post('/api/role/search',['take'=>10,'skip'=>0])
+        ->assertStatus(200);
+});
+
 

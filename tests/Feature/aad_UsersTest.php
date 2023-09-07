@@ -49,3 +49,8 @@ it('delete user', function () {
     $response->assertStatus(200);
 
 });
+
+it('search user', function () {
+    asAdmin()->post('/api/user/search',['take'=>10,'skip'=>0])
+        ->assertStatus(200);
+});
